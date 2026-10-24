@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cobertura-audit"
+version = "0.1.0"
+description = "Recompute Cobertura line coverage and catch inconsistent summaries before CI gates."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "KanadeK"}]
+dependencies = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.urls]
+Repository = "https://github.com/KanadeK/cobertura-audit"
+Issues = "https://github.com/KanadeK/cobertura-audit/issues"
+
+[project.scripts]
+cobertura-audit = "cobertura_audit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S603", "S607"]
+"scripts/*" = ["S603", "S607"]
+
+[tool.coverage.run]
+branch = true
+source = ["cobertura_audit"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85
